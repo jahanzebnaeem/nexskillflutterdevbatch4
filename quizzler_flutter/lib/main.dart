@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:quizzler_flutter/question_brain.dart';
+
+QuizBrain quizBrain = QuizBrain();
 
 void main() {
   runApp(const Quizzler());
@@ -31,21 +34,53 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
+  List<Icon> checkedAnswer = [
+    // const Icon(
+    //   Icons.check,
+    //   color: Colors.green,
+    // ),
+    // const Icon(
+    //   Icons.close,
+    //   color: Colors.red,
+    // ),
+    //TODO: Create logic for displaying icons according to the answers.
+  ];
+
+  // List<String> questions = [
+  //   'You can lead a cow down stairs but not up stairs.',
+  //   'Approximately one quarter of human bones are in the feet.',
+  //   'A slug\'s blood is green.',
+  // ];
+  //
+  // List<bool> answers = [
+  //   false,
+  //   true,
+  //   true,
+  // ];
+
+  // List<Question> questions = [
+  //   Question('You can lead a cow down stairs but not up stairs.', false),
+  //   Question('Approximately one quarter of human bones are in the feet.', true),
+  //   Question('A slug\'s blood is green.', true),
+  // ];
+
+  int questionNumber = 0;
+
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        const Expanded(
+        Expanded(
           flex: 5,
           child: Padding(
-            padding: EdgeInsets.all(10.0),
+            padding: const EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                'This is where the question text will go.',
+                quizBrain.questions[questionNumber].questionText,
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 25.0,
                   color: Colors.white,
                 ),
@@ -69,6 +104,15 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 //The user picked true.
+                if (quizBrain.questions[questionNumber].answerVal == true) {
+                  print('User answer is corret');
+                } else {
+                  print('User answer is wrong');
+                }
+
+                setState(() {
+                  questionNumber++;
+                });
               },
             ),
           ),
@@ -89,11 +133,21 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 //The user picked false.
+                if (quizBrain.questions[questionNumber].answerVal == false) {
+                  print('User answer is corret');
+                } else {
+                  print('User answer is wront');
+                }
+                setState(() {
+                  questionNumber++;
+                });
               },
             ),
           ),
         ),
-        //TODO: Add a Row here as your score keeper
+        Row(
+          children: checkedAnswer,
+        ),
       ],
     );
   }
