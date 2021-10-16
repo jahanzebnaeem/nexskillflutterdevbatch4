@@ -64,7 +64,7 @@ class _QuizPageState extends State<QuizPage> {
   //   Question('A slug\'s blood is green.', true),
   // ];
 
-  int questionNumber = 0;
+  // int questionNumber = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +78,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: const EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                quizBrain.questions[questionNumber].questionText,
+                quizBrain.getQuestion(),
                 textAlign: TextAlign.center,
                 style: const TextStyle(
                   fontSize: 25.0,
@@ -104,14 +104,16 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 //The user picked true.
-                if (quizBrain.questions[questionNumber].answerVal == true) {
-                  print('User answer is corret');
+                // quizBrain.questions[questionNumber].answerVal = true;
+
+                if (quizBrain.getAnswer()) {
+                  print('User answer is correct');
                 } else {
                   print('User answer is wrong');
                 }
 
                 setState(() {
-                  questionNumber++;
+                  quizBrain.nextQuestion();
                 });
               },
             ),
@@ -133,13 +135,13 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 //The user picked false.
-                if (quizBrain.questions[questionNumber].answerVal == false) {
-                  print('User answer is corret');
+                if (!quizBrain.getAnswer()) {
+                  print('User answer is correct');
                 } else {
-                  print('User answer is wront');
+                  print('User answer is wrong');
                 }
                 setState(() {
-                  questionNumber++;
+                  quizBrain.nextQuestion();
                 });
               },
             ),
