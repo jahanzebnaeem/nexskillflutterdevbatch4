@@ -46,6 +46,28 @@ class _QuizPageState extends State<QuizPage> {
     //TODO: Create logic for displaying icons according to the answers.
   ];
 
+  void displayUserAnswer(bool userSelectedOption) {
+    setState(() {
+      if (quizBrain.getAnswer() == userSelectedOption) {
+        checkedAnswer.add(
+          const Icon(
+            Icons.check,
+            color: Colors.green,
+          ),
+        );
+      } else {
+        checkedAnswer.add(
+          const Icon(
+            Icons.close,
+            color: Colors.red,
+          ),
+        );
+      }
+
+      quizBrain.nextQuestion();
+    });
+  }
+
   // List<String> questions = [
   //   'You can lead a cow down stairs but not up stairs.',
   //   'Approximately one quarter of human bones are in the feet.',
@@ -105,16 +127,7 @@ class _QuizPageState extends State<QuizPage> {
               onPressed: () {
                 //The user picked true.
                 // quizBrain.questions[questionNumber].answerVal = true;
-
-                if (quizBrain.getAnswer()) {
-                  print('User answer is correct');
-                } else {
-                  print('User answer is wrong');
-                }
-
-                setState(() {
-                  quizBrain.nextQuestion();
-                });
+                displayUserAnswer(true);
               },
             ),
           ),
@@ -135,14 +148,7 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 //The user picked false.
-                if (!quizBrain.getAnswer()) {
-                  print('User answer is correct');
-                } else {
-                  print('User answer is wrong');
-                }
-                setState(() {
-                  quizBrain.nextQuestion();
-                });
+                displayUserAnswer(false);
               },
             ),
           ),
