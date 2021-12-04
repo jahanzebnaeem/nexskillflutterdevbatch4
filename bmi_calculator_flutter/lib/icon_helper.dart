@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class IconHelper extends StatelessWidget {
-  IconHelper({required this.icon, required this.label});
+  const IconHelper({required this.icon, required this.label});
 
   final IconData icon;
   final String label;
